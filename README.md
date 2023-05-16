@@ -23,6 +23,41 @@ Rune integrates with Kubernetes and leverages Custom Resource Definitions (CRDs)
 
 To get started with Rune, refer to the documentation for installation instructions, usage guides, and configuration details. The documentation provides step-by-step instructions, sample YAML definitions, and CLI usage examples to assist users in effectively utilizing the Rune service for their secret management needs.
 
+### Example
+
+```yaml
+apiVersion: core.rune.io/v1alpha1
+kind: Secret
+metadata:
+  name: my-secret
+  namespace: default
+spec:
+  interval: 1h
+  serviceAccountName: ops
+  path: production/db/postgres
+  kms:
+    google: projects/my-project/locations/global/keyRings/my-keyring/cryptoKeys/my-key
+    aws: arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012
+```
+
+### Workflow
+
+1. Rune Controller: Watches for Secret objects.
+2. Uses the service account to fetch credentials from SPIRE.
+3. Requests the OCI artifact from Zot.
+4. Decrypts the artifact using Tink.
+5. Creates a Kubernetes secret with the decrypted data.
+
+### Rune CLI Usage
+
+```shell
+RUNE_KMS_GOOGLE=projects/my-project/locations/global/keyRings/my-keyring/cryptoKeys/my-key
+rune push ghcr.io/phoban01 production/db/postgres --from-file secret.json
+```
+
+Please note that the provided KMS values in this example are placeholders. Make sure to replace them with the actual KMS resource identifiers or ARNs for your specific environment and key configurations.
+
+
 ### Community and Contributions
 
 Rune is an open-source project, and we welcome contributions from the community. If you encounter issues, have suggestions, or would like to contribute to the project, please visit the Rune GitHub repository. We value the input and participation of the community in improving the features, functionality, and security of Rune.
