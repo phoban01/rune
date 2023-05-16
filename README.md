@@ -69,7 +69,3 @@ Rune is released under the [Apache License 2.0](https://www.apache.org/licenses/
 ### Acknowledgments
 
 Rune is built upon the efforts of various open-source projects and libraries. We extend our gratitude to the contributors and maintainers of these projects for their valuable work and contributions.
-
----
-
-Feel free to customize and enhance the README according to your project's specific details and requirements.
