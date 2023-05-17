@@ -52,6 +52,7 @@ spec:
 ```
 
 ### **OCI Registry as Secret Store**
+
 OCI registries offer a range of advantages that make them an excellent choice for storing encrypted data. These advantages include secure signing, efficient mirroring, and broad accessibility, positioning OCI registries as a robust and versatile option for encrypted data storage.
 
 Secure signing is a crucial factor when it comes to encrypted data storage, and OCI registries excel in this aspect. OCI registries support cryptographic signing of container images and artifacts using digital signatures. This signing mechanism ensures the integrity and authenticity of the encrypted data stored in the registry. By verifying the digital signatures, organizations can trust the source and integrity of the encrypted data, providing an additional layer of security and mitigating the risks of tampering or unauthorized modifications.
