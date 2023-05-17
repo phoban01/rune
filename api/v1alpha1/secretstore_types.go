@@ -17,25 +17,47 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // SecretStoreSpec defines the desired state of SecretStore
 type SecretStoreSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// +required
+	Registry RegistrySpec `json:"registry"`
 
-	// Foo is an example field of SecretStore. Edit secretstore_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// +required
+	KMS KMSSpec `json:"kms"`
+}
+
+// RegistrySpec defines the secret store registry
+type RegistrySpec struct {
+	// +required
+	URL string `json:"url"`
+
+	// +required
+	SecretRef corev1.LocalObjectReference `json:"secretRef"`
+}
+
+// KMSSpec defines the kms to use
+type KMSSpec struct {
+	// +required
+	Provider string `json:"provider"`
+
+	// +required
+	Value string `json:"value"`
+
+	// +required
+	SecretRef corev1.LocalObjectReference `json:"secretRef"`
 }
 
 // SecretStoreStatus defines the observed state of SecretStore
 type SecretStoreStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// +optional
+	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
+
+	// +optional
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 //+kubebuilder:object:root=true

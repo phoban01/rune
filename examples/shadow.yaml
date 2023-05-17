@@ -1,0 +1,12 @@
+apiVersion: core.rune.io/v1alpha1
+kind: ShadowSecret
+metadata:
+  name: my-secret
+  namespace: default
+spec:
+  interval: 1h
+  secretStoreRef:
+    name: github-secrets
+  serviceAccountName: default
+  path: kv/staging/database
+  version: v1

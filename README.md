@@ -45,10 +45,14 @@ metadata:
   namespace: default
 spec:
   registry:
-    url: https://my-oci-registry.example.com
-    credentials:
-      secretRef:
-        name: my-registry-credentials
+    url: oci://my-oci-registry.example.com
+    secretRef:
+      name: my-registry-credentials
+  kms:
+    provider: google
+    value:
+    secretRef:
+      name: my-kms-credentials
 ```
 
 ### **OCI Registry as Secret Store**

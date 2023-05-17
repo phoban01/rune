@@ -89,13 +89,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.SecretReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Secret")
-		os.Exit(1)
-	}
 	if err = (&controllers.ShadowSecretReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),

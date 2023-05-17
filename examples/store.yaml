@@ -1,0 +1,16 @@
+apiVersion: core.rune.io/v1alpha1
+kind: SecretStore
+metadata:
+  name: github-secrets
+  namespace: default
+spec:
+  registry:
+    url: oci://ghcr.io/phoban01
+    secretRef:
+      name: piaras-creds
+  kms:
+    provider: google
+    value: gcp-kms://projects/steadfast-sign-219317/locations/europe-west2/keyRings/tink-tey/cryptoKeys/test
+    secretRef:
+      name: gcp-creds
+

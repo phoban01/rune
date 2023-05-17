@@ -17,25 +17,35 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"github.com/fluxcd/pkg/apis/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // ShadowSecretSpec defines the desired state of ShadowSecret
 type ShadowSecretSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// +required
+	Interval metav1.Duration `json:"interval"`
 
-	// Foo is an example field of ShadowSecret. Edit shadowsecret_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// +required
+	SecretStoreRef meta.NamespacedObjectReference `json:"secretStoreRef"`
+
+	// +required
+	ServiceAccountName string `json:"serviceAccountName"`
+
+	// +required
+	Path string `json:"path"`
+
+	// +required
+	Version string `json:"version"`
 }
 
 // ShadowSecretStatus defines the observed state of ShadowSecret
 type ShadowSecretStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// +optional
+	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
+
+	// +optional
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 //+kubebuilder:object:root=true
