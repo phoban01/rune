@@ -1,71 +1,68 @@
-# rune
+# Rune
 
-## Problem Statement: Secure and Efficient Secret Management in Kubernetes
+*Problem Statement: Secure and Efficient Secret Management in Kubernetes*
 
 Managing secrets in a Kubernetes environment can be a challenging task. Traditional approaches often involve manual handling of sensitive information, leading to potential security vulnerabilities, operational inefficiencies, and difficulties in maintaining secret integrity across various applications and microservices. Furthermore, securely retrieving and decrypting secrets while ensuring proper access control and authentication can add complexity to the overall system.
 
-## Introduction: Rune - Secure and Seamless Secret Retrieval for Kubernetes
+## **Introduction: Rune - Secure and Seamless Secret Retrieval for Kubernetes**
 
 Rune is an open-source solution designed to address the challenges of secret management in Kubernetes environments. It provides a secure and seamless approach to retrieving, decrypting, and utilizing secrets while ensuring strong access control and authentication mechanisms.
 
-Rune integrates with Kubernetes and leverages Custom Resource Definitions (CRDs) to define secrets and their associated metadata. With Rune, secrets are stored in a secure manner, and their retrieval is facilitated through a well-defined workflow. The service employs encryption technologies, such as Tink, to ensure the confidentiality of secret data during transmission and storage.
+Rune stores secrets encrypted in an OCI (Open Container Initiative) registry, ensuring their confidentiality and integrity. The `rune` CLI is used to read, write, encrypt, and decrypt secrets. The `rune-controller` makes secrets accessible within the Kubernetes cluster by decrypting them using the access credentials stored in the RuneStore CRD.
 
-### Key Features
+To enable a registry, a `RuneStore` CRD is created, providing the access credentials. Path-based RBAC is enforced on secrets, with the policy stored in the registry and written in CUE.
 
-- **Secure Secret Retrieval**: Rune securely retrieves secrets from specified sources, leveraging SPIRE for authentication and access control.
-- **Efficient Decryption**: Utilizing the powerful Tink encryption library, Rune efficiently decrypts secrets, ensuring the confidentiality and integrity of sensitive information.
-- **Seamless Integration**: Rune seamlessly integrates with Kubernetes, allowing the creation of Kubernetes secrets based on the retrieved secret data.
-- **CLI Convenience**: The Rune CLI client provides a user-friendly command-line interface for interacting with the Rune service, simplifying secret management tasks.
-- **Flexibility and Extensibility**: Rune is built with flexibility and extensibility in mind, allowing for the integration of custom key management systems and secret sources.
-- **Comprehensive Documentation**: Rune is accompanied by comprehensive documentation, providing clear guidelines and examples for easy adoption and usage.
+Users can retrieve secrets in two ways:
 
-### Getting Started
+- **Rune Secret CRD**: The `Rune Secret` CRD specifies the interval, `RuneStore` reference, service account name, and path. The `rune-controller` uses the service account as the principal when validating RBAC.
 
-To get started with Rune, refer to the documentation for installation instructions, usage guides, and configuration details. The documentation provides step-by-step instructions, sample YAML definitions, and CLI usage examples to assist users in effectively utilizing the Rune service for their secret management needs.
+- **Rune API**: Workloads can request secrets from the `rune-controller` server at runtime using the HTTP/gRPC API. The API requires a service account JWT for RBAC validation, and a Go client SDK is provided for easy integration.
 
-### Example
+## **Examples**
+
+1. Rune Secret CRD:
 
 ```yaml
 apiVersion: core.rune.io/v1alpha1
-kind: Secret
+kind: ShadowSecret
 metadata:
   name: my-secret
   namespace: default
 spec:
   interval: 1h
-  serviceAccountName: ops
+  runeStoreRef: my-rune-store
+  serviceAccountName: app-team
   path: production/db/postgres
-  kms:
-    google: projects/my-project/locations/global/keyRings/my-keyring/cryptoKeys/my-key
-    aws: arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012
 ```
 
-### Workflow
+2. RuneStore CRD:
 
-1. Rune Controller: Watches for Secret objects.
-2. Uses the service account to fetch credentials from SPIRE.
-3. Requests the OCI artifact from Zot.
-4. Decrypts the artifact using Tink.
-5. Creates a Kubernetes secret with the decrypted data.
-
-### Rune CLI Usage
-
-```shell
-RUNE_KMS_GOOGLE=projects/my-project/locations/global/keyRings/my-keyring/cryptoKeys/my-key
-rune push ghcr.io/phoban01 production/db/postgres --from-file secret.json
+```yaml
+apiVersion: core.rune.io/v1alpha1
+kind: SecretStore
+metadata:
+  name: my-rune-store
+  namespace: default
+spec:
+  registry:
+    url: https://my-oci-registry.example.com
+    credentials:
+      secretRef:
+        name: my-registry-credentials
 ```
 
-Please note that the provided KMS values in this example are placeholders. Make sure to replace them with the actual KMS resource identifiers or ARNs for your specific environment and key configurations.
+**Getting Started**
 
+To get started with Rune, refer to the documentation for installation instructions, usage guides, and configuration details. The documentation provides step-by-step instructions, sample YAML definitions, and CLI usage examples to assist users in effectively utilizing the Rune service for their secret management needs.
 
-### Community and Contributions
+**Community and Contributions**
 
 Rune is an open-source project, and we welcome contributions from the community. If you encounter issues, have suggestions, or would like to contribute to the project, please visit the Rune GitHub repository. We value the input and participation of the community in improving the features, functionality, and security of Rune.
 
-### License
+**License**
 
-Rune is released under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). Please refer to the LICENSE file for more details.
+Rune is released under the Apache License 2.0. Please refer to the LICENSE file for more details.
 
-### Acknowledgments
+**Acknowledgments**
 
 Rune is built upon the efforts of various open-source projects and libraries. We extend our gratitude to the contributors and maintainers of these projects for their valuable work and contributions.
