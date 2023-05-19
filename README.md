@@ -14,6 +14,15 @@ Kubernetes workloads can retrieve secrets in two ways:
 
 By combining cloud-native principles with robust encryption and access control mechanisms, Rune simplifies secret management in Kubernetes environments while ensuring the highest level of security and confidentiality for sensitive information.
 
+### Highlights
+
+1. **Seamless Integration with OCI Registries:** Rune seamlessly integrates with widely adopted OCI registries, ensuring compatibility and accessibility across different container runtimes, orchestrators, and deployment platforms.
+
+2. **Robust Encryption with Google Tink:** By leveraging Google Tink, Rune provides a battle-tested and highly secure cryptographic library, offering robust encryption and decryption mechanisms for protecting secrets in Kubernetes environments.
+
+3. **Fine-Grained Access Control:** With path-based RBAC, Rune enables precise control over who can access specific secrets, ensuring strong access control measures and mitigating the risk of unauthorized access or misuse.
+
+
 ### **OCI Registry as Secret Store**
 OCI registries offer a range of advantages that make them an excellent choice for storing encrypted data. These advantages include secure signing, efficient mirroring, and broad accessibility, positioning OCI registries as a robust and versatile option for encrypted data storage.
 
@@ -69,3 +78,18 @@ spec:
       secretRef:
         name: my-registry-credentials
 ```
+**Goals:**
+
+1. Enhanced Security: Encrypt secrets using Google Tink and store them securely in an OCI registry.
+2. Simplified Secret Management: Provide a user-friendly CLI and controller for easy secret operations.
+3. Strong Access Control: Implement path-based RBAC for precise access control to secrets.
+4. Integration with OCI Registries: Seamlessly integrate with OCI registries, leveraging their security features.
+5. Flexible Encryption: Utilize Google Tink for versatile encryption capabilities.
+
+**Non-Goals:**
+
+1. Secrets in Transit: Rune does not focus on securing secrets during transmission.
+2. Secret Rotation: Rune does not handle automatic secret rotation; it should be managed separately.
+3. Secrets Management outside Kubernetes: Rune focuses solely on secret management within Kubernetes.
+4. Custom Encryption Algorithms: Rune uses encryption algorithms provided by Google Tink.
+5. Identity and Access Management: Rune relies on Kubernetes RBAC for access control and authentication.
