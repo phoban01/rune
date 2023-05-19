@@ -59,20 +59,3 @@ Secure signing is a crucial factor when it comes to encrypted data storage, and 
 Efficient mirroring is another notable advantage of OCI registries for encrypted data storage. OCI registries offer the capability to create mirrors or replicas of the registry across multiple instances or locations. This mirroring mechanism enables organizations to achieve data redundancy and high availability, ensuring uninterrupted access to the encrypted data. Mirroring also improves the overall performance by enabling localized access to the encrypted data, reducing latency and network congestion. With efficient mirroring capabilities, OCI registries provide organizations with a reliable and scalable solution for storing and accessing encrypted data.
 
 Moreover, OCI registries are widely used and accessible in various environments. They have gained significant adoption across the container ecosystem, becoming a standard for storing all sorts of data, including encrypted data. OCI registries are compatible with different container runtimes, orchestrators, and deployment platforms, making them accessible in diverse computing environments. This wide acceptance and accessibility ensure that encrypted data stored in OCI registries can be seamlessly utilized and integrated into different applications, services, and systems across different infrastructures.
-
-###**Getting Started**
-
-To get started with Rune, refer to the documentation for installation instructions, usage guides, and configuration details. The documentation provides step-by-step instructions, sample YAML definitions, and CLI usage examples to assist users in effectively utilizing the Rune service for their secret management needs.
-
-
-**Community and Contributions**
-
-Rune is an open-source project, and we welcome contributions from the community. If you encounter issues, have suggestions, or would like to contribute to the project, please visit the Rune GitHub repository. We value the input and participation of the community in improving the features, functionality, and security of Rune.
-
-**License**
-
-Rune is released under the Apache License 2.0. Please refer to the LICENSE file for more details.
-
-**Acknowledgments**
-
-Rune is built upon the efforts of various open-source projects and libraries. We extend our gratitude to the contributors and maintainers of these projects for their valuable work and contributions.
