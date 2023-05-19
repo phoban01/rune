@@ -2,7 +2,7 @@
 
 Rune is an open-source solution designed to address the challenges of secret management in Kubernetes environments. It provides a secure and seamless approach to storing, retrieving, and utilizing secrets while ensuring strong access control, authentication, and encryption mechanisms.
 
-Rune leverages Google Tink, an open-source cryptographic library, to ensure robust encryption and decryption of secrets. Secrets are stored encrypted in an OCI (Open Container Initiative) registry, ensuring their confidentiality and integrity. The `rune` CLI is used to read, write, encrypt, and decrypt secrets, while the `rune-controller` makes secrets accessible within the Kubernetes cluster by decrypting them using the access credentials stored in the RuneStore CRD.
+Secrets are stored encrypted in an OCI (Open Container Initiative) registry, ensuring their confidentiality and integrity. Rune leverages Google Tink, an open-source cryptographic library, to ensure robust encryption and decryption of secrets.  The `rune` CLI is used to read, write, encrypt, and decrypt secrets, while the `rune-controller` makes secrets accessible within the Kubernetes cluster by decrypting them using any method supported by Tink. Secret integrity and provenance is verified `cosign`.
 
 To enable a registry, a `RuneStore` CRD is created, providing the access credentials. Rune supports path-based RBAC (Role-Based Access Control), ensuring that only authorized entities can access specific secrets based on a policy which can be stored in the registry itself.
 
